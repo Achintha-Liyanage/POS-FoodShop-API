@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- NoWarn is not strictly necessary here unless this project also has public API controllers, 
+         but adding it for consistency or if DTOs are exposed directly and might lack comments. 
+         If it causes issues or is unwanted for a class library, it can be omitted. -->
+    <NoWarn>$(NoWarn);1591</NoWarn> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyPOS.Domain\MyPOS.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" /> 
+    <!-- Added BCrypt.Net-Next -->
+  </ItemGroup>
+
+</Project>
