@@ -60,7 +60,8 @@ namespace MyPOS.Application.Services
 
             // Authentication successful, generate JWT
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var jwtSection = _configuration.GetSection("Jwt");
+            var key = Encoding.ASCII.GetBytes(jwtSection["Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -70,8 +71,8 @@ namespace MyPOS.Application.Services
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
+                Issuer = jwtSection["Issuer"],
+                Audience = jwtSection["Audience"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
